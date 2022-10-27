@@ -1,48 +1,736 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/beige.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2
-						<aside class="notes">
-						<p>Some notes</p>
-						</aside>
-						<p>Some slide text</p>
-						<aside class="notes">
-						<p>and some more notes</p>
-					</aside>
-				</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <link rel="stylesheet" href="resources/custom.css" />
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    <style>
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4,
+      .reveal h5 {
+        text-transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-background="https://media.giphy.com/media/A06UFEx8jxEwU/giphy.gif"
+        >
+          <h1 style="color: white">Python Type Annotations</h1>
+          <h3 style="color: white">By Adam Carruthers</h3>
+
+          <aside class="notes">
+            <p>
+              Hello and welcome to my presentation about type annotations an in
+              python
+            </p>
+            <p>What are type annotations?</p>
+            <p>What are types?</p>
+            <p>Let's find out!</p>
+          </aside>
+        </section>
+
+        <section>
+          <h2>What are types 🤔</h2>
+
+          <aside class="notes">
+            <p>Let's start basic, what are types?</p>
+
+            <p>
+              You guys will already be vaguely familiar with types from SQL. In
+              SQL tables, each column has a data type.
+            </p>
+
+            <ul>
+              <li>
+                The first column is a name, which is text, and we call this data
+                type "string".
+              </li>
+              <li>The second column is a date.</li>
+              <li>
+                The third column is a true or false value, which we call
+                boolean.
+              </li>
+              <li>
+                The fourth column has height, which is a number with a decimal
+                point. We'll call this float, which stands for "floating point".
+                You will sometimes hear this called "double".
+              </li>
+              <li>
+                Finally, we have a whole number, which I'll call integer,
+                because that is the standard name for whole numbers in
+                computing. Obviously the number of children a person has is a
+                whole number - unless you accepted an offer from King Solomon in
+                the bible.
+              </li>
+            </ul>
+
+            Whenever a computer has a bit of data, it knows what type it is, and
+            types are important. Depending on what the type of something is the
+            computer can do different things!
+          </aside>
+
+          <table class="type-table fragment">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>date_birth</th>
+                <th>has_diabetes</th>
+                <th>height</th>
+                <th>n_children</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>"John"</td>
+                <td>1982-07-21</td>
+                <td>TRUE</td>
+                <td>175.4</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>"Sally"</td>
+                <td>1992-11-03</td>
+                <td>FALSE</td>
+                <td>161.5</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <section>
+            <h1>1 + 1 = <span class="fragment">2</span></h1>
+          </section>
+
+          <section>
+            <h1>"ab" + "cd" = <span class="fragment">"abcd"</span></h1>
+          </section>
+
+          <section>
+            <h1>1 + "abc" = <span class="fragment">???</span></h1>
+          </section>
+        </section>
+
+        <section>
+          <h2
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: baseline;
+            "
+          >
+            Types in Python
+            <img
+              src="resources/python_logo.png"
+              height="60em"
+              style="padding-left: 20px"
+            />
+          </h2>
+
+          <aside class="notes">
+            So Python has types too! Much like the columns in the SQL table had
+            a type, the objects in python have types. So here, the variable name
+            has type string, cos it's a string, it is text.
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            name = "John"
+
+            import datetime
+            date_birth = datetime.date(1982, 7, 21)
+
+            has_diabetes = True
+
+            height = 175.4
+
+            n_children = 2
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>More complex types</h2>
+
+          <aside class="notes">
+            Here we have some complex types. In the variable "a_list" is a list
+            (shockingly). In the variable "a_dictionary" is a dictionary. In the
+            variable "a_data_frame" is an object with the type "DataFrame".
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            a_list = [1, 2, 3, "a", "b", "c"]
+
+            a_dictionary = {
+              "something": {
+                "nested": "dictionary",
+                123: "anything goes really"
+              }
+            }
+
+            import pandas as pd
+            a_data_frame = pd.read_csv("some_data.csv")
+          </code></pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Python is flexible</h2>
+
+          <aside class="notes">
+            Python let's you do something quite crazy, which isn't allowed in a
+            lot of other programming languages. I can make a variable and assign
+            it a value (click). Then I can, later on, reassign it (click)
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            my_var = 5
+          </code></pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Python is flexible</h2>
+
+          <aside class="notes">
+            to a variable of a different type. Before it was an integer, now it
+            is a list of strings. And then I can do it again (click)
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            my_var = 5
+            my_var = ["hello", "there"]
+          </code></pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Python is flexible</h2>
+
+          <aside class="notes">
+            At this point in writing fake examples, I was getting pretty bored
+            and scraping the barrel. But this variable now contains a dictionary
+            of integers to integers. If you are not familiar with dictionaries,
+            I strongly recommend that you take a Python course and get familiar,
+            because they are very important.
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            my_var = 5
+            my_var = ["hello", "there"]
+            my_var = {9999: 1234567}
+          </code></pre>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Python is flexible</h2>
+
+          <aside class="notes">
+            Okay, couldn't help to include a crazy example to blow your brain if
+            you're used to SQL. We can actually take functions and assign them
+            to variables, and then use them. Python is flexible.
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            my_var = 5
+            my_var = ["hello", "there"]
+            my_var = {9999: 1234567}
+            my_var = print
+            my_var("this will print to the console")
+          </code></pre>
+        </section>
+
+        <section data-auto-animate data-auto-animate-id="two">
+          <h2>Flexibility in functions</h2>
+
+          <aside class="notes">
+            This flexibility extends to functions. We have a function here that
+            says hello between two people. In the function I'm using this thing
+            called an f-string to place the values of the parameters in the
+            string, I recommend looking into it if you're not yet familiar. So
+            when we run this code, we will see (click) "Barry says hello to
+            Nish". But we can also do weird stuff
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def say_hello_between_two_people(person1, person2):
+              print(f"{person1} says hello to {person2}")
+            
+            say_hello_between_two_people("Barry", "Nish")
+          </code></pre>
+          <p class="fragment">Barry says hello to Nish</p>
+        </section>
+
+        <section data-auto-animate data-auto-animate-id="two">
+          <h2>Flexibility in functions</h2>
+
+          <aside class="notes">
+            We've swapped out what is in the function. We can take where we put
+            the people's names, and just do whatever we want. So here we are
+            going to see? That's right, "True says hello to 3.1415". Like a
+            mathematician's dream.
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def say_hello_between_two_people(person1, person2):
+              print(f"{person1} says hello to {person2}")
+            
+            say_hello_between_two_people(True, 3.1415)
+          </code></pre>
+          <p class="fragment">True says hello to 3.1415</p>
+        </section>
+
+        <section data-auto-animate data-auto-animate-id="two">
+          <h2>Flexibility in functions</h2>
+
+          <aside class="notes">
+            And now we can go truly crazy, because Python let's us do whatever
+            we want. Take a moment to guess the answer.
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def say_hello_between_two_people(person1, person2):
+              print(f"{person1} says hello to {person2}")
+            
+            say_hello_between_two_people([1, 2], {"contrived": "example"})
+          </code></pre>
+          <p class="fragment">[1, 2] says hello to {"contrived": "example"}</p>
+        </section>
+
+        <section data-auto-animate data-auto-animate-id="three">
+          <h2>Flexibility pain</h2>
+
+          <aside class="notes">
+            <p>
+              So this flexibility is cool and all, but without guardrails, you
+              often end up erring. So here's an example, we're trying to delete
+              some user. We have this function that deletes it for us, and then
+              we call it down below. Do you spot the error? (click)
+            </p>
+            <p>
+              user_id should have been a string! Isn't it obvious? No, it's not.
+              It's not written anywhere that user_id is a string and not an int.
+            </p>
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def delete_user(user_id):
+              ...
+            
+            delete_user(user_id=2358)
+            </code></pre>
+          <p class="fragment">❌ user_id should have been string!</p>
+        </section>
+
+        <section>
+          <h2>Also it doesn't work well in code editors</h2>
+
+          <aside class="notes">
+            Another related issue. When you are using code editors, they can
+            normally be very helpful with things like autocomplete. However,
+            since there is no way of knowing what function parameters actually
+            are, code editors can't really help you in python. (click) So here
+            we can see VSCode letting us know that it has no idea what this
+            parameter is.
+          </aside>
+
+          <img
+            class="fragment"
+            src="./resources/unknown_parameter.jpg"
+            alt="VSCode screenshot showing unknown parameter"
+          />
+        </section>
+
+        <section>
+          <h2>The old solution</h2>
+
+          <aside class="notes">
+            <p>
+              The old solution to this problem, it was the solution at google,
+              and it is also commonly the solution here, is to put the type the
+              variable should be in the docstring (click). I mean it's fine. You
+              now make fewer errors.
+            </p>
+            <p>
+              This solution is better than the alternative, but I don't love it.
+              It's a lot of characters. It does nothing to help your code editor
+              understand the types. Python, in built, has a better way.
+            </p>
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def delete_user(user_id):
+              """
+              Args:
+                user_id:
+                  String representing the user id
+              """
+              ...
+            
+            delete_user(user_id="2358")
+          </code></pre>
+        </section>
+
+        <section
+          data-background="https://media.giphy.com/media/FP56vNcwOVyvu/giphy.gif"
+        >
+          <h2>Drumroll please...</h2>
+        </section>
+
+        <section>
+          <h2>Type annotations 🥳</h2>
+
+          <aside class="notes">
+            <p>
+              The solution I recommend is called type annotations. So here
+              (click) is how you define the type for a variable, with simple
+              types. You just put a colon after the variable name and you say
+              what the type actually is. int for integer, bool for boolean.
+            </p>
+            <p>
+              And (click) it's officially part of Python since Python 3.7, so it
+              should just work. How do you write more complex types? (next)
+            </p>
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            x: int = 1
+            x: float = 1.0
+            x: bool = True
+            x: str = "test"
+          </code></pre>
+          <p class="fragment">Officially part of Python since Python 3.7!</p>
+        </section>
+
+        <section>
+          <h2>More complex annotations</h2>
+
+          <aside class="notes">
+            How do you do the more complex types? Well it depends. If I have a
+            list of integers, I can write this (click). If I have a dictionary
+            of strings to floats I can do this (click). If I have a DataFrame,
+            you can do the below (click). There are also a way to represent a
+            combination of types. So with this union thing, the type of x is an
+            int *or* a string. Note, for some of these to work you need Python
+            3.9 or above - so keep that in mind.
+          </aside>
+
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers="|4,5|4,6|1,7|2,8">
+            import pandas as pd
+            from typing import Union
+
+            # To do this you need python 3.9+
+            x: list[int] = [1, 2, 3]
+            x: dict[str, float] = {"field": 2.0}
+            x: pd.DataFrame = pd.read_csv("data.csv")
+            x: Union[int, str] = function_that_returns_either_int_or_string()
+            </code></pre>
+        </section>
+
+        <section>
+          <aside class="notes">
+            <p>
+              Just to give you a challenge, here is a complex object with a
+              complex type (click). I'm going to give everyone a moment to
+              decide what type they think this should have. 3, 2, 1. Okay, so
+              this is a dictionary, and it maps strings to lists of integers. So
+              the type is (click) dict[str, int[list]].
+            </p>
+            <p>
+              Types are complex, and I don't want to go fully into the
+              intricacies, so we'll leave how to write the type definitions
+              there for now.
+            </p>
+          </aside>
+
+          <div style="font-size: 1.5em">
+            <pre
+              class="fragment"
+              data-id="code-animation"
+            ><code class="language-python" data-trim data-line-numbers>
+              student_grades_by_name = {
+                "Alicja": [99, 82, 72, 21],
+                "Joel": [61, 78, 27, 89],
+              }
+            </code></pre>
+            <code class="fragment">dict[str, list[int]]</code>
+          </div>
+        </section>
+
+        <section>
+          <h2>Type annotations on functions</h2>
+
+          <aside class="notes">
+            <p>
+              The most important place we use type annotations is on functions.
+              In functions we can define the types of the parameters and also
+              the return type of the function.
+            </p>
+            <p>
+              Let's look at our example from earlier, but with types (click).
+              It's pretty easy no? After each parameter you put a colon, then
+              you put the type of that parameter. For the return type, you put a
+              line and a chevron to make an arrow, then you put the return type.
+              This function returns nothing so we put None. In my opinion that's
+              a much neater way to show the types of each of the parameters.
+            </p>
+            <p>
+              Let's look at a slightly more complicated function. This function
+              takes a list of integers and an integer multiplier, then returns a
+              new list where each item in the list has been multipled by that
+              number. Here (click) is that function, with the type definition.
+            </p>
+            <p>
+              This function that I have written uses a list comprehension, which
+              I would recommend learning if you're properly getting into python.
+            </p>
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def delete_user(user_id: str) -> None:
+              ...
+          </code></pre>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>
+            def multiply_every_number_in_list(
+              numbers: list[int], multiplier: int
+            ) -> list[int]:
+                return [
+                    num * multiplier
+                    for num in numbers
+                ]
+            
+            multiply_every_number_in_list([1, 2, 3], 2)
+            # >> [2, 4, 6]
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>It's optional and not enforced</h2>
+
+          <aside class="notes">
+            <p>
+              Type definitions are optional and they are also not enforced when
+              you run the code.
+            </p>
+            <ul>
+              <li>
+                (click) You can just not put a type definition for anything,
+                that's still allowed. And you're allowed a mix.
+              </li>
+              <li>
+                (click) You can just straight up lie, and there won't be an
+                error when you run this program. But you shouldn't.
+              </li>
+              <li>
+                (click) In an equal vein, you're free to ignore instructions. If
+                a function says to give it an integer and you want to give it a
+                string cos you feel like it, that's your perogative.
+              </li>
+            </ul>
+            <p>
+              You can do all these things if you have low enough morals. Since
+              it is optional and isn't enforced, the type annotations are
+              essentailly just a form of documentation - and we all know that
+              RAP is about good documentation.
+            </p>
+            <p>But this documentation is better than a simple comment.</p>
+          </aside>
+
+          <pre
+            class="fragment"
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers="|1-4|6-7|9-12">
+            # Allowed to not have type definition
+            x = 5
+            def func(param_without_type):
+                pass
+
+            # Allowed to be a lyer
+            gary: int = "👿"
+
+            # Allowed to ignore instructions
+            def do_a_thing(param: int) -> None:
+                return []
+            do_a_thing("blah")
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>It shows if you hover your mouse in VSCode</h2>
+
+          <aside class="notes">
+            <p>
+              So you may or may not know that when you hover over a function in
+              VSCode, it shows the docstring. It also shows the type annotation.
+              So in this way the type annotation is good documentation.
+            </p>
+            <p>
+              Now's a good time to mention that you need to have the python
+              extension turned on in VSCode for this all to work. Also, if you
+              use spyder, spyder doesn't do a lot of this, so change to VSCode.
+            </p>
+          </aside>
+
+          <img
+            src="resources/shows_types_in_hover.jpg"
+            alt="shows hover in VSCode displaying the type annotation"
+          />
+        </section>
+
+        <section>
+          <section>
+            <h2>Autocomplete</h2>
+            <aside class="notes">
+              Also, VSCode understands type annotations, and so VSCode can now
+              autocomplete many things for you in the function. In this example,
+              because VSCode knows that numbers is a list, it knows that it has
+              the append method. So when I type numbers.app, it can recommend to
+              finish it off with append, and it also gives me the docstring of
+              the append method. (click)
+            </aside>
+
+            <img
+              src="resources/autocomplete_param.jpg"
+              alt="shows VSCode autocompleting a method on a param with a type annotation"
+            />
+
+            <img
+              class="fragment"
+              src="resources/without_param_type_no_autocomplete.jpg"
+              alt="shows VSCode not autocompleting a method on a param that lacks a type annotation"
+            />
+          </section>
+
+          <section>
+            <aside class="notes">
+              The autocomplete works with the return types as well. Because
+              VSCode knows the return here is a dataframe, it can recommend me
+              the reset_index method.
+            </aside>
+            <img
+              src="resources/autocomplete_return.jpg"
+              alt="shows VSCode autocompleting a method on the return of a function"
+            />
+          </section>
+        </section>
+
+        <section>
+          <h2>Static type checking</h2>
+
+          <aside class="notes">
+            <p>
+              For the absolute final final thing. I said that the type checks
+              weren't enforced. This means that even if the type hints are
+              wrong, the python will still run. However, you can get VSCode to
+              check the types for you without you running the code!
+            </p>
+            <p>
+              This is called static type checking. Static means that the code
+              isn't run. You have to turn on a setting (click) here, it is an
+              opt in feature, but it comes with the python extension.
+            </p>
+            <p>
+              If we look at that example from earlier - look! It spots the
+              error! We get an error that says the type is incompatible when we
+              hover our mouse.
+            </p>
+            <p>
+              There are actually tools out there that can run type checking
+              analysis on all of your code. That means you can run them before
+              you commit your code, to spot mistakes you might have missed. The
+              most famous of those tools is called mypy. The one included in
+              VSCode, made by microsoft, is called Pylance.
+            </p>
+          </aside>
+
+          <img
+            class="fragment"
+            src="resources/autocomplete_return.jpg"
+            alt="shows VSCode autocompleting a method on the return of a function"
+          />
+        </section>
+
+        <section
+          data-background="https://media.giphy.com/media/lMameLIF8voLu8HxWV/giphy.gif"
+        >
+          <h1 style="color: white">Thank You! Questions?</h1>
+
+          <aside class="notes">
+            So that's the end of my part of the presentation. I hope you now
+            understand types a bit better, and I hope you start you start using
+            type annotations throughout your code.
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>

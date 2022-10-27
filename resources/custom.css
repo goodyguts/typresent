@@ -1,0 +1,22 @@
+.type-table {
+  white-space: nowrap;
+  font-size: 0.9em;
+  background: white;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+table.type-table td,
+table.type-table th {
+  text-align: center !important;
+}
+
+table.type-table td {
+  border-bottom: 0 !important;
+  padding: 0.5em 0.5em !important;
+}
+
+table.type-table td:nth-child(even),
+table.type-table th:nth-child(even) {
+  background: #eee;
+}
