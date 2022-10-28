@@ -307,7 +307,24 @@ gulp.task(
   gulp.series(gulp.parallel("js", "css", "plugins"), "test")
 );
 
-gulp.task("build", gulp.parallel("js", "css", "plugins", "html-build"));
+gulp.task("build", gulp.parallel("js", "css", "plugins"));
+
+gulp.task("html-build", () =>
+  gulp
+    .src(
+      [
+        "./index.html",
+        "./dist/**",
+        "./lib/**",
+        "./images/**",
+        "./plugin/**",
+        "./resources/**",
+        "./**.md",
+      ],
+      { base: "./" }
+    )
+    .pipe(gulp.dest("./html-build"))
+);
 
 gulp.task(
   "package",
@@ -320,6 +337,7 @@ gulp.task(
           "./lib/**",
           "./images/**",
           "./plugin/**",
+          "./resources/**",
           "./**.md",
         ],
         { base: "./" }
