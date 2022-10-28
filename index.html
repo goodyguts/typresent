@@ -32,7 +32,7 @@
     <div class="reveal">
       <div class="slides">
         <section
-          data-background="https://media.giphy.com/media/A06UFEx8jxEwU/giphy.gif"
+          data-background="https://media.giphy.com/media/7FrOU9tPbgAZtxV5mb/giphy-downsized-large.gif"
         >
           <h1 style="color: white">Python Type Annotations</h1>
           <h3 style="color: white">By Adam Carruthers</h3>
@@ -438,10 +438,16 @@
             class="fragment"
             data-id="code-animation"
           ><code class="language-python" data-trim data-line-numbers>
-            x: int = 1
-            x: float = 1.0
-            x: bool = True
-            x: str = "test"
+            name: str = "John"
+
+            import datetime
+            date_birth: datetime.date = datetime.date(1982, 7, 21)
+
+            has_diabetes: bool = True
+
+            height: float = 175.4
+
+            n_children: int = 2
           </code></pre>
           <p class="fragment">Officially part of Python since Python 3.7!</p>
         </section>
@@ -598,7 +604,7 @@
             def func(param_without_type):
                 pass
 
-            # Allowed to be a lyer
+            # Allowed to be a liar
             gary: int = "👿"
 
             # Allowed to ignore instructions
@@ -697,9 +703,15 @@
           </aside>
 
           <img
-            class="fragment"
-            src="resources/autocomplete_return.jpg"
+            class="fragment fade-in-then-semi-out"
+            src="resources/type_checking_setting.jpg"
             alt="shows VSCode autocompleting a method on the return of a function"
+          />
+          <img
+            class="fragment"
+            src="resources/static_type_check.jpg"
+            alt="shows VSCode autocompleting a method on the return of a function"
+            style="position: relative; margin-top: -350px"
           />
         </section>
 
